@@ -1,13 +1,17 @@
 <script lang="ts">
 	import Auth from '$lib/layout/Auth.svelte';
+	import ColorMode from '$lib/components/ColorMode.svelte';
 	// import Logo from '$lib/svg/logo.svelte';
 </script>
 
 <header>
 	<!-- <a class="logo" href="/"><Logo /><span>voard</span></a> -->
-	<h1><a href="/">Lucia + SvelteKit demo</a></h1>
+	<h1><a href="/">SvelteKit + Lucia + Prisma</a></h1>
 
-	<Auth />
+	<div class="right">
+		<ColorMode />
+		<Auth />
+	</div>
 </header>
 
 <style>
@@ -16,6 +20,10 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
+	}
+
+	.right {
+		display: flex;
 	}
 
 	/* header .logo {

@@ -20,12 +20,9 @@ export const actions: Actions = {
 		})
 
 		prisma.$disconnect()
-		if (user) {
-		console.log('user',user)
-      return {
-				user: user,
-			}
-		}
+if (user) {
+  return JSON.stringify(user)
+}
 	}
 }
  

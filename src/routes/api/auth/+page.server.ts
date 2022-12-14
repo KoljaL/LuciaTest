@@ -43,6 +43,7 @@ export const actions: Actions = {
 		const form = await request.formData();
 		const username = form.get('username');
 		const password = form.get('password');
+		const email = form.get('email');
 		console.log('username',username)
 		console.log('password',password)
 		if (!username || !password || typeof username !== 'string' || typeof password !== 'string') {
@@ -54,7 +55,8 @@ export const actions: Actions = {
 			const user = await auth.createUser('username', username, {
 				password,
 				attributes: {
-					username
+					username,
+					email
 				}
 			});
 			const session = await auth.createSession(user.userId);

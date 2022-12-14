@@ -23,9 +23,10 @@
 		});
 
 		let data = await response.json();
-		console.log(data);
 		if (data.type === 'success') {
-			profile = data.data;
+			profile = JSON.parse(JSON.parse(data.data));
+			console.log($user);
+			console.log(profile);
 		}
 	});
 </script>
@@ -35,10 +36,20 @@
 		<span class="closeIcon" on:click={closeProfile} on:keypress={closeProfile}><CloseIcon /></span>
 		<h3>Profile</h3>
 
+		<h3>$user</h3>
 		<pre class="code">
-      {JSON.stringify($user, null, 2)}
+      <p>
+        Name: {$user?.username}
+        {JSON.stringify($user, null, 2)}
+      </p>
+      </pre>
+
+		<h3>profile</h3>
+		<pre class="code">
+      <p>
+        Name: {profile?.username}
+      </p>
       {JSON.stringify(profile, null, 2)}
-      {JSON.stringify(profile1, null, 2)}
     </pre>
 	</div>
 </div>

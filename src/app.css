@@ -32,7 +32,8 @@
   --width-content: 1080px;
 }
 
-@media (prefers-color-scheme: dark) {
+
+/* @media (prefers-color-scheme: dark) {
   :root {
       --color-accent: #0097fc4f;
       --color-bg: #333;
@@ -46,6 +47,34 @@
       --color-text: #f7f7f7;
       --color-text-secondary: #aaa;
   }
+} */
+
+
+
+[data-theme="dark"] {
+  --color-accent: #0097fc4f;
+  --color-bg: #333;
+  --color-bg-secondary: #555;
+  --color-svelte:#ff3e00;
+  --color-link: #0097fc;
+  --color-secondary: #e20de9;
+  --color-secondary-accent: #e20de94f;
+  --color-shadow: #bbbbbb20;
+  --color-table: #0097fc;
+  --color-text: #f7f7f7;
+  --color-text-secondary: #aaa;
+}
+
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+* {
+	/* https://www.matuzo.at/blog/2022/100daysof-day20/ */
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	box-sizing: border-box;
 }
 
 *{
@@ -229,6 +258,7 @@ nav ul li ul li a {
 
 /* Typography */
 code,
+.code,
 samp {
   background-color: var(--color-accent);
   border-radius: var(--border-radius);
@@ -236,6 +266,7 @@ samp {
   display: inline-block;
   margin: 0 0.1rem;
   padding: 0 0.5rem;
+  overflow: scroll;
 }
 
 details {

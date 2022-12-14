@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>Swoard - a Svelte-Board</title>
+	<title>SvelteKit + Lucia + Prisma</title>
 </svelte:head>
 
 <Header />

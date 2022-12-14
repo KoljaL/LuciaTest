@@ -3,6 +3,7 @@
 	import LoginIcon from '$lib/svg/logout.svelte';
 	import LogoutIcon from '$lib/svg/login.svelte';
 	import ProfileIcon from '$lib/svg/profile.svelte';
+	import InputField from '$lib/components/InputField.svelte';
 
 	import { fade } from 'svelte/transition';
 	import { invalidateAll } from '$app/navigation';
@@ -15,7 +16,9 @@
 	let signUpIn = true;
 	let isExpanded = true;
 	let errorMessage: String;
-
+	let namevalue: string = 'peter';
+	let passwordvalue: string = 'peter123';
+	let emailvalue: string = 'peter@peter.org';
 	function toggleSignUpIn(event: Event) {
 		event.stopPropagation();
 		signUpIn = !signUpIn;
@@ -94,10 +97,25 @@
 						};
 					}}
 				>
-					<label for="username">username</label>
-					<input id="username" name="username" value="peter" />
-					<label for="password">password</label>
-					<input type="password" id="password" name="password" value="peter123" />
+					<InputField
+						id="username"
+						type="text"
+						placeholder="must be unique"
+						label={true}
+						labelText="Username"
+						required={true}
+						bind:value={namevalue}
+					/>
+
+					<InputField
+						id="password"
+						type="password"
+						placeholder="must be sectet"
+						label={true}
+						labelText="Password"
+						required={true}
+						bind:value={passwordvalue}
+					/>
 					<div style="display:flex; justify-content:space-between; align-items: center;">
 						<input type="submit" value="Sign In" class="button" />
 						<span class="signUpIn" on:click={toggleSignUpIn} on:keydown={toggleSignUpIn}
@@ -123,10 +141,35 @@
 						};
 					}}
 				>
-					<label for="username">username</label>
-					<input id="username" name="username" value="peter" />
-					<label for="password">password</label>
-					<input type="password" id="password" name="password" value="peter123" />
+					<InputField
+						id="username"
+						type="text"
+						placeholder="must be unique"
+						label={true}
+						labelText="Username"
+						required={true}
+						bind:value={namevalue}
+					/>
+
+					<InputField
+						id="email"
+						type="email"
+						placeholder="must be unique"
+						label={true}
+						labelText="Email"
+						required={true}
+						bind:value={emailvalue}
+					/>
+
+					<InputField
+						id="password"
+						type="password"
+						placeholder="must be sectet"
+						label={true}
+						labelText="Password"
+						required={true}
+						bind:value={passwordvalue}
+					/>
 					<div style="display:flex; justify-content:space-between; align-items: center;">
 						<span class="signUpIn" on:click={toggleSignUpIn} on:keydown={toggleSignUpIn}
 							>Sign In</span
@@ -137,7 +180,7 @@
 			{/if}
 
 			{#if errorMessage}
-				<p class="error">{errorMessage}</p>
+				<p transition:fade class="error">{errorMessage}</p>
 			{/if}
 		</div>
 	{/if}
@@ -195,5 +238,10 @@
 		margin: 0;
 		margin-left: 0.25rem;
 		margin-bottom: 0.25rem;
+	}
+
+	.error {
+		font-size: 0.8rem;
+		color: brown;
 	}
 </style>
