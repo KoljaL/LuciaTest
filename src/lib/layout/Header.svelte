@@ -1,12 +1,6 @@
 <script lang="ts">
 	import Auth from '$lib/layout/Auth.svelte';
-	import Logo from '$lib/svg/logo.svelte';
-
-	// import Login from '$lib/svg/login.svelte';
-	// import { signOut, getUser } from '@lucia-auth/sveltekit/client';
-	// import { invalidateAll } from '$app/navigation';
-	// const user = getUser();
-	// $: console.log('Header $user', $user);
+	// import Logo from '$lib/svg/logo.svelte';
 </script>
 
 <header>
@@ -24,7 +18,7 @@
 		justify-content: space-between;
 	}
 
-	header .logo {
+	/* header .logo {
 		display: flex;
 	}
 	header .logo a:hover {
@@ -39,5 +33,5 @@
 		font-size: 2rem;
 		font-weight: 600;
 		margin-left: 0.15rem;
-	}
+	} */
 </style>

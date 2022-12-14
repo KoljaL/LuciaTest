@@ -1,20 +1,23 @@
 <script lang="ts">
-	import Login from '$lib/svg/login.svelte';
-	import Logout from '$lib/svg/logout.svelte';
-	import User from '$lib/svg/user.svelte';
-	import { clickOutside } from '$lib/functions/clickOutside';
+	import UserIcon from '$lib/svg/user.svelte';
+	import LoginIcon from '$lib/svg/logout.svelte';
+	import LogoutIcon from '$lib/svg/login.svelte';
+	import ProfileIcon from '$lib/svg/profile.svelte';
 
-	import { enhance, type SubmitFunction } from '$app/forms';
-	import { signOut, getUser } from '@lucia-auth/sveltekit/client';
+	import { fade } from 'svelte/transition';
 	import { invalidateAll } from '$app/navigation';
+	import { enhance, type SubmitFunction } from '$app/forms';
+	import { clickOutside } from '$lib/functions/clickOutside';
+	import { signOut, getUser } from '@lucia-auth/sveltekit/client';
 
-	import { slide, fade } from 'svelte/transition';
-
-	let isExpanded = true;
+	const user = getUser();
+	let Profile: any;
 	let signUpIn = true;
-	function togglesignUpIn(event: Event) {
-		event.stopPropagation();
+	let isExpanded = true;
+	let errorMessage: String;
 
+	function toggleSignUpIn(event: Event) {
+		event.stopPropagation();
 		signUpIn = !signUpIn;
 	}
 
@@ -22,13 +25,16 @@
 		isExpanded = !isExpanded;
 	}
 
-	const user = getUser();
-	let errorMessage: String;
+	function loadProfile() {
+		import('./Profile.svelte').then((res) => (Profile = res.default));
+	}
 
 	// $: console.log('Header $user', $user);
 	// $: console.log('Auth $user', $user);
 	// $: console.log('Header $user', $user);
 </script>
+
+<svelte:component this={Profile} closeProfile={() => (Profile = false)} />
 
 <div class="auth">
 	<button
@@ -38,9 +44,9 @@
 		}}
 	>
 		{#if $user}
-			<User />
+			<UserIcon />
 		{:else}
-			<Login />
+			<LoginIcon />
 		{/if}
 	</button>
 
@@ -55,25 +61,31 @@
 			<!-- PROFILE / LOGOUT -->
 			{#if $user}
 				<div class="user">
-					<button><User /> Profile</button>
+					<h3>{$user.username}</h3>
+					<button
+						on:click={async () => {
+							loadProfile();
+							toggleExpand();
+						}}><ProfileIcon /> Profile</button
+					>
 					<button
 						on:click={async () => {
 							await signOut();
 							invalidateAll();
 							toggleExpand();
-						}}><Logout />Sign out</button
+						}}><LogoutIcon />Sign out</button
 					>
 				</div>
 				<!-- LOGIN -->
 			{:else if signUpIn}
 				<form
 					method="post"
-					action="/auth?/signin"
+					action="/api/auth?/signin"
 					use:enhance={() => {
 						errorMessage = '';
 						return async ({ result }) => {
-							if (result.type === 'invalid' && result.data) {
-								errorMessage = result.data.message;
+							if (result.type === 'failure') {
+								errorMessage = result.data?.message || 'Sign In failed';
 							}
 							if (result.type === 'success') {
 								invalidateAll();
@@ -88,7 +100,7 @@
 					<input type="password" id="password" name="password" value="peter123" />
 					<div style="display:flex; justify-content:space-between; align-items: center;">
 						<input type="submit" value="Sign In" class="button" />
-						<span class="signUpIn" on:click={togglesignUpIn} on:keydown={togglesignUpIn}
+						<span class="signUpIn" on:click={toggleSignUpIn} on:keydown={toggleSignUpIn}
 							>Sign Up</span
 						>
 					</div>
@@ -97,12 +109,12 @@
 			{:else}
 				<form
 					method="post"
-					action="/auth?/signup"
+					action="/api/auth?/signup"
 					use:enhance={() => {
 						errorMessage = '';
 						return async ({ result }) => {
-							if (result.type === 'invalid') {
-								errorMessage = result.data.message;
+							if (result.type === 'failure') {
+								errorMessage = result.data?.message || 'Sign Up failed';
 							}
 							if (result.type === 'success') {
 								invalidateAll();
@@ -116,7 +128,7 @@
 					<label for="password">password</label>
 					<input type="password" id="password" name="password" value="peter123" />
 					<div style="display:flex; justify-content:space-between; align-items: center;">
-						<span class="signUpIn" on:click={togglesignUpIn} on:keydown={togglesignUpIn}
+						<span class="signUpIn" on:click={toggleSignUpIn} on:keydown={toggleSignUpIn}
 							>Sign In</span
 						>
 						<input type="submit" value="Sign Up" class="button" />
@@ -176,7 +188,12 @@
 		border: 1px solid var(--color-bg-secondary);
 		border-radius: var(--border-radius);
 		box-shadow: var(--box-shadow) var(--color-shadow);
-		padding: 1rem;
+		padding: 0.5rem 1rem;
 		text-align: var(--justify-normal);
+	}
+	.user h3 {
+		margin: 0;
+		margin-left: 0.25rem;
+		margin-bottom: 0.25rem;
 	}
 </style>
