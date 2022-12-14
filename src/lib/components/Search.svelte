@@ -102,13 +102,13 @@
 <style>
 	:root {
 		--search-border-radius: 0.4rem;
-		--search-border-color: var(--border-color-sec);
-		--search-text-color: var(--text-color);
-		--search-icon-color: var(--text-color);
-		--search-hover-color: var(--text-hover-color);
-		--search-bg2-color: var(--bg-content);
-		--search-bg1-color: var(--bg-tab);
-		--search-bg3-color: var(--bg-main);
+		--search-border-color: var(--color-text);
+		--search-text-color: var(--color-text);
+		--search-icon-color: var(--color-text);
+		--search-hover-color: var(--color-text);
+		--search-bg2-color: var(--color-bg);
+		--search-bg1-color: var(--color-bg);
+		--search-bg3-color: var(--color-bg);
 		--search-height: 35px;
 		--search-width: 35px;
 	}
@@ -118,6 +118,7 @@
 		height: var(--search-height);
 		width: var(--search-width);
 		vertical-align: bottom;
+		text-align: unset;
 	}
 	.return-icon svg,
 	.search-icon svg {

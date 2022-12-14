@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Auth from '$lib/layout/Auth.svelte';
 	import ColorMode from '$lib/components/ColorMode.svelte';
+	import Search from '$lib/components/Search.svelte';
 	// import Logo from '$lib/svg/logo.svelte';
 </script>
 
@@ -9,6 +10,7 @@
 	<h1><a href="/">SvelteKit + Lucia + Prisma</a></h1>
 
 	<div class="right">
+		<Search />
 		<ColorMode />
 		<Auth />
 	</div>
